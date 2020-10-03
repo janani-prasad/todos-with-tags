@@ -1,0 +1,107 @@
+.main {
+    display: table;
+    margin: 10px auto;
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 25px;
+    width: 65%;
+}
+
+.gradient{
+    background: rgba(147,206,222,1);
+background: -moz-radial-gradient(center, ellipse cover, rgba(147,206,222,1) 0%, rgba(147,206,222,1) 12%, rgba(136,218,240,1) 40%, rgba(73,165,191,1) 96%, rgba(73,165,191,1) 100%);
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(147,206,222,1)), color-stop(12%, rgba(147,206,222,1)), color-stop(40%, rgba(136,218,240,1)), color-stop(96%, rgba(73,165,191,1)), color-stop(100%, rgba(73,165,191,1)));
+background: -webkit-radial-gradient(center, ellipse cover, rgba(147,206,222,1) 0%, rgba(147,206,222,1) 12%, rgba(136,218,240,1) 40%, rgba(73,165,191,1) 96%, rgba(73,165,191,1) 100%);
+background: -o-radial-gradient(center, ellipse cover, rgba(147,206,222,1) 0%, rgba(147,206,222,1) 12%, rgba(136,218,240,1) 40%, rgba(73,165,191,1) 96%, rgba(73,165,191,1) 100%);
+background: -ms-radial-gradient(center, ellipse cover, rgba(147,206,222,1) 0%, rgba(147,206,222,1) 12%, rgba(136,218,240,1) 40%, rgba(73,165,191,1) 96%, rgba(73,165,191,1) 100%);
+background: radial-gradient(ellipse at center, rgba(147,206,222,1) 0%, rgba(147,206,222,1) 12%, rgba(136,218,240,1) 40%, rgba(73,165,191,1) 96%, rgba(73,165,191,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#49a5bf', GradientType=1 );
+}
+
+.main h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.main h2 {
+    margin-bottom: 20px;
+}
+
+.addTodoContainer {
+    margin: 0 5% 5% 15%;
+}
+
+.searchTodoContainer {
+    margin-left: 5% ;
+}
+
+.searchLabel {
+    display: block;
+}
+
+#searchBar {
+    width: 80%;
+}
+
+.dInline {
+    display: inline;
+}
+ 
+
+.inlineBlock {
+    display: inline-block; 
+    vertical-align: top;
+
+}
+
+#todoText {
+    margin-bottom: 15px;
+}
+
+.new-todo {
+    margin: 10px 0;
+}
+
+.form-check-label {
+    margin: 0 5px 0 3px;
+}
+
+.todosContainer {
+    display: flex;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+#containerTodos, #containerDone {
+    min-height: 100px;
+    padding: 2px 15px 10px 10px;
+    flex: 1;
+}
+
+#containerTodos {
+    border-right: 1px solid cadetblue;
+}
+
+#containerDone {
+    margin-left: 20px;
+}
+
+/* Styles for register page */
+form#registerForm {
+    margin-left: 15%;
+}
+
+form#registerForm input {
+    width:75%;
+}
+
+
+/* Styles for login page */
+form#login-form {
+    margin-left: 15%;
+}
+
+form#login-form input {
+    width:75%;
+}
+
+

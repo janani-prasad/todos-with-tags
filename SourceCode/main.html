@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+    <head>
+        <link rel="stylesheet" href="css/bootstrap-tagsinput.css">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link  rel="stylesheet" href="css/styles.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="js/bootstrap-tagsinput.js"></script>
+        
+
+    </head>
+    <body>
+    <div class="main gradient">
+        <h1>Todos with Tags functionality</h1>
+        <div class="addSearchTodos">
+            <div class="addTodoContainer inlineBlock">
+                <label class="">Add a Todo:</label>
+                <input type="text" id="todoText" class="form-control" value=""/>
+                <button type="button" id="submit" class="btn btn-primary"> Submit Todo</button>
+            </div>
+            
+            <div class="input-group mb-3 inlineBlock searchTodoContainer">
+                <label class="searchLabel">Search a Todo:</label>
+                <input type="text" id="searchBar" class="form-control" placeholder="Search">
+                <div class="input-group-append dInline">
+                <button class="btn btn-success" id="search" type="submit">Go</button>  
+                </div>
+            </div>
+        </div>
+
+        <div class="todosContainer">
+            <div id="containerTodos" class="inlineBlock">
+                <h2>List of Todos</h2>
+            </div>
+            <div id="containerDone" class="inlineBlock">
+                <h2>Todos completed</h2>
+            </div>
+        </div>
+        <br><br>
+        <br>
+        <button type="button" id="save" class="btn btn-primary" style="display: none;"> Save Todos</button>
+        <br>
+        <!-- <input type="text" value="Amsterdam,Washington,Sydney,Beijing,Cairo" data-role="tagsinput" id="tags" class="form-control"> -->
+    </div>
+    <footer></footer>
+        
+
+        <script>
+            $(document).ready(function(){
+                //Retrieve todos and tag associated with it when logged in
+                var count = 0;
+                var todosArray = localStorage.getItem("todos").split(',');
+                var todosArrayL = todosArray.length
+                
+                if(todosArrayL > 1) {
+                    for(var i = 0; i < todosArrayL; i++) {
+                        $('#containerTodos')
+                        .append('<div class="new-todo"><input type="checkbox" class="form-check-input todosNewClass" id="todo'+ (count++) + '" name="interest" value="'+ todosArray[i].split(" ")[0]+ '"><label class="form-check-label" contenteditable="true" for="'+ todosArray[i].split(" ")[0]+ '">'+ todosArray[i].split(" ")[0]+ '</label><input type="text" value="'+ todosArray[i].split(" ")[1]+ '" class="tagTodoSaved form-control"></div>')
+                        // data-role="tagsinput" does not take effect when dynamically added. So instantiate it after timeout  
+                        setTimeout(function() {
+                        $('.tagTodoSaved').tagsinput({
+                            maxTags: 1
+                        });
+                    }, 100);
+                    }
+                }
+                // Adding a todo with checkbox
+                // use "on" so that click takes effect for dynamically created tags as well
+                $(document).on('click', '#submit', function() {
+                    count = count + 1;
+                    var newTodo = $('#todoText').val();
+                    // Create id for a tag near a newly created todo
+                    var tagsId = '#tags'+ (count)
+
+                    $('#containerTodos')
+                    .append('<div class="new-todo"><input type="checkbox" class="form-check-input todosNewClass" id="todo'+ (count) + '" name="interest" value="'+ newTodo+ '"><label class="form-check-label" contenteditable="true" for="'+ newTodo+ '">'+ newTodo+ '</label><input type="text" value="" class="tagTodo form-control" id="'+ tagsId + '"></div>')
+                    // data-role="tagsinput" does not take effect when dynamically added. So instantiate it after timeout
+                    setTimeout(function() {
+                        $('.tagTodo').tagsinput({
+                            maxTags: 1
+                        });
+                    }, 100);
+                    $('#todoText').val('');
+                    $('#save').css('display', 'inline-block');
+                });
+                
+                // Iterate all Todos and move a todo to completed list when it is checked
+                // use "on" so that click/checked gets detected for dynamically created tags as well
+                $(document).on('click', '#containerTodos', function() {
+                    $("input:checkbox").each(function() {
+                        if ($(this).is(":checked")) {
+                            var id = $(this).attr('id');
+                            var completedTodo = $(this).parent().find('label').clone();
+                            $('#containerDone').append(completedTodo);
+                            $('#containerDone').append(`<br>`);
+                            // $(this).parent().find('label').clone().appendTo($('#containerDone'));
+                            // $('#containerDone').append($(this);
+                            $(this).parent().remove();
+                        }
+                        });
+                        $('#save').css('display', 'inline-block');
+                    });
+                // Save the todos and tags associated to it in local storage so it can be retrieved
+                $('#save').click(function(){
+                    var todoList = []
+                    var labelTag;
+                    $('#containerTodos').find('label').each(function (j, element) {
+                        labelTag = element.nextElementSibling.firstElementChild.innerText;
+                        //Push todoItem and it's tag separated by space to array
+                        todoList.push(element.innerText + " " + labelTag);
+                    });
+                    localStorage.setItem("todos", todoList);
+                });
+
+                //Search functionality
+                $('#search').click(function(){
+                    var labelTag;
+                    var searchItem = $('#searchBar').val();
+                    $('#containerTodos').find('label').each(function (j, element) {
+                        labelTag = element.nextElementSibling.firstElementChild.innerText;
+                        if ((searchItem == labelTag) || (searchItem.length == 0)) {
+                            element.parentElement.style.display = "";
+                            // element.parent().css("display", "block");
+                        }
+                        else {
+                            element.parentElement.style.display = "none";
+                            // element.parent().css("display", "none");
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>
+
+

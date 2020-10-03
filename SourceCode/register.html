@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+    <head>
+        <link rel="stylesheet" href="css/bootstrap-tagsinput.css">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link  rel="stylesheet" href="css/styles.css">
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="js/bootstrap-tagsinput.js"></script>
+        <style>
+            input[type="submit"]:disabled {
+            background-color: red;
+            }
+        </style>
+
+    </head>
+    <body>
+      <div class="main gradient">
+        <h1>Register Form</h1>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="uname">User Name</label>
+                <input type="text" class="form-control" id="uname" placeholder="User Name">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <label for="pass1">Password</label>
+              <input type="password" class="form-control" id="pass1" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <label for="pass2">Confirm Password</label>
+                <input type="password" class="form-control" id="pass2" placeholder="Confirm Password">
+              </div>
+            <!-- <div class="form-group form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div> -->
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+      </div>
+          <script>
+              $(document).ready(function() {
+                $('#registerForm').submit(function(e){
+                    var form = this;
+                    e.preventDefault();
+                    // Check Passwords are the same
+                    if( $('#pass1').val()==$('#pass2').val() ) {
+                        // Submit Form
+                        alert('Passwords Match, submitting form');
+                        //Store user credentials in local storage    
+                        var uname = $("#uname").val();
+                        var pass = $("#pass1").val();
+                        localStorage.setItem("uname", uname);
+                        localStorage.setItem("pass", pass);
+                        window.location.href = 'login.html';
+                        return false;
+
+                        // form.submit();
+                    } else {
+                        // Complain bitterly
+                        alert('Password Mismatch');
+                        return false;
+                    }
+                });
+                });
+          </script>
+    </body>
+</html>
